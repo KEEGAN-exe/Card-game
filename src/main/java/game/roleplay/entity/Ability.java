@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,6 +32,10 @@ public class Ability implements Serializable {
 	@JsonIgnore
 	private Boolean state;
 
+	@ManyToOne
+	@JoinColumn(name = "id_element")
+	private Element element;
+
 	public Ability() {
 	}
 
@@ -47,6 +53,14 @@ public class Ability implements Serializable {
 
 	public void setState(Boolean state) {
 		this.state = state;
+	}
+
+	public Element getElement() {
+		return element;
+	}
+
+	public void setElement(Element element) {
+		this.element = element;
 	}
 
 	public Integer getId_ability() {

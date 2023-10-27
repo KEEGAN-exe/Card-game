@@ -1,15 +1,19 @@
 package game.roleplay.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name = "categories")
 @Entity
@@ -28,14 +32,20 @@ public class Category implements Serializable {
 	@JsonBackReference
 	private Boolean state;
 
+	@OneToMany(mappedBy = "category")
+	@JsonIgnore
+	private Collection<Character> itemsCharacter = new ArrayList<Character>();
+
 	public Category() {
 	}
 
-	public Category(Integer idCategory, String nameCategory, String description, Boolean state) {
+	public Category(Integer idCategory, String nameCategory, String description, Boolean state,
+			Collection<Character> itemsCharacter) {
 		this.idCategory = idCategory;
 		this.nameCategory = nameCategory;
 		this.description = description;
 		this.state = state;
+		this.itemsCharacter = itemsCharacter;
 	}
 
 	public Boolean getState() {
@@ -44,6 +54,14 @@ public class Category implements Serializable {
 
 	public void setState(Boolean state) {
 		this.state = state;
+	}
+
+	public Collection<Character> getItemsCharacter() {
+		return itemsCharacter;
+	}
+
+	public void setItemsCharacter(Collection<Character> itemsCharacter) {
+		this.itemsCharacter = itemsCharacter;
 	}
 
 	public Integer getIdCategory() {

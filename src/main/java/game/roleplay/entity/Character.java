@@ -37,15 +37,27 @@ public class Character implements Serializable {
 	@JsonIgnore
 	private Boolean state;
 
+	@ManyToOne
+	@JoinColumn(name = "id_category", nullable = false)
+	private Category category;
+
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "character_element", joinColumns = @JoinColumn(name = "character_id"), inverseJoinColumns = @JoinColumn(name = "element_id"))
+	private List<Element> elements = new ArrayList<Element>();
+
 	public Character() {
 	}
 
-	public Character(Integer idCharacter, String name, String lastname, Integer livePoint, Boolean state) {
+	public Character(Integer idCharacter, String name, String lastname, Integer livePoint, Boolean state,
+			Category category, List<Element> elements) {
 		this.idCharacter = idCharacter;
 		this.name = name;
 		this.lastname = lastname;
 		this.livePoint = livePoint;
 		this.state = state;
+		this.category = category;
+		this.elements = elements;
 	}
 
 	public Boolean getState() {
@@ -54,6 +66,23 @@ public class Character implements Serializable {
 
 	public void setState(Boolean state) {
 		this.state = state;
+	}
+
+
+	public List<Element> getElements() {
+		return elements;
+	}
+
+	public void setElements(List<Element> elements) {
+		this.elements = elements;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public Integer getIdCharacter() {
