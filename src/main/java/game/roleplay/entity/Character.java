@@ -68,6 +68,13 @@ public class Character implements Serializable {
 		this.state = state;
 	}
 
+	public void addElement(Element element) {
+		elements.add(element);
+	}
+
+	public void removeElement(Element element) {
+		elements.remove(element);
+	}
 
 	public List<Element> getElements() {
 		return elements;
